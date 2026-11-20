@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>合同风险审查 · 多 Agent 系统</title>
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+           stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 3h8l4 4v14H6z"></path><path d="M14 3v4h4"></path>
+        <path d="M9 12h6M9 16h4"></path>
+      </svg>
+    </div>
+    <div class="brand-text">
+      <h1>合同风险审查</h1>
+      <p>解析 · 并行判定 · 证据校验 · 复核</p>
+    </div>
+  </div>
+
+  <div class="topbar-right">
+    <span id="modeChip" class="chip chip-idle">连接中…</span>
+    <button id="btnPaste" class="btn btn-ghost" type="button">粘贴文本</button>
+    <button id="btnUpload" class="btn btn-primary" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 16V4m0 0L7 9m5-5 5 5"></path><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path>
+      </svg>
+      上传合同
+    </button>
+    <input id="fileInput" type="file" accept=".txt,.md,.docx" hidden>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+           stroke-linecap="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path>
+      </svg>
+      <input id="search" type="search" placeholder="搜索合同名称…" autocomplete="off">
+    </div>
+
+    <div class="side-head">
+      <span>合同库</span>
+      <span id="contractCount" class="side-count">—</span>
+    </div>
+    <div id="contractList" class="contract-list"></div>
+    <div class="side-foot" id="sideFoot"></div>
+  </aside>
+
+  <main id="main" class="main">
+    <div class="loading-pane">正在载入…</div>
+  </main>
+</div>
+
+<aside id="sourcePanel" class="source-panel" aria-hidden="true">
+  <div class="source-head">
+    <div>
+      <strong id="sourceTitle">合同原文</strong>
+      <span id="sourceMeta" class="source-meta"></span>
+    </div>
+    <button id="sourceClose" class="icon-btn" type="button" title="关闭">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+           stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+    </button>
+  </div>
+  <div id="sourceBody" class="source-body"></div>
+  <div class="source-foot">
+    <span class="lg"><i class="dot lv-high"></i>高危</span>
+    <span class="lg"><i class="dot lv-mid"></i>中危</span>
+    <span class="lg"><i class="dot lv-low"></i>低危</span>
+    <span class="lg-hint">底色为证据锚点，由证据校验定位得出</span>
+  </div>
+</aside>
+
+<div id="modal" class="modal" aria-hidden="true">
+  <div class="modal-card">
+    <div class="modal-head">
+      <strong>粘贴合同正文</strong>
+      <button id="modalClose" class="icon-btn" type="button" title="关闭">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+             stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+      </button>
+    </div>
+    <label class="field">
+      <span>合同名称</span>
+      <input id="pasteName" type="text" placeholder="例如：设备采购合同（对方稿）">
+    </label>
+    <label class="field">
+      <span>正文</span>
+      <textarea id="pasteText" rows="12" placeholder="粘贴合同全文，至少 50 字…"></textarea>
+    </label>
+    <div class="modal-foot">
+      <span id="pasteHint" class="hint"></span>
+      <button id="pasteSubmit" class="btn btn-primary" type="button">存入合同库</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
